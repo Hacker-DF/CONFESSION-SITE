@@ -24,6 +24,34 @@
       <ul id="liste"></ul>
     </section>
   </main>
+  <section id="partage" style="text-align: center; margin-top: 40px;">
+  <h3 style="color: #ff4081;">🔗 Ton lien de partage personnel</h3>
+
+  <input type="text" id="nomUtilisateur" placeholder="Entre ton pseudo ici"
+         style="padding: 10px; border-radius: 6px; border: 1px solid #888; margin-bottom: 10px; width: 60%; font-size: 16px;"><br>
+
+  <button id="btnCopierPerso" onclick="copierLienPerso()" class="bouton-copier">
+    📋 Copier ton lien
+  </button>
+
+  <p id="messageCopiePerso" class="copier-message"></p>
+
+  <!-- Boutons de partage -->
+  <div style="margin-top: 20px;">
+    <a id="lienWhatsApp" href="#" target="_blank" style="margin: 8px;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"
+           style="height: 30px; vertical-align: middle;"> Partager sur WhatsApp
+    </a>
+    <a id="lienFacebook" href="#" target="_blank" style="margin: 8px;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Facebook_Logo.png" alt="Facebook"
+           style="height: 28px; vertical-align: middle;"> Partager sur Facebook
+    </a>
+  </div>
+</section>
+<section id="boite-secrete">
+  <h2 id="titre-boite"></h2>
+  <ul id="liste-confessions"></ul>
+</section>
 
   <script src="script.js"></script>
 </body>

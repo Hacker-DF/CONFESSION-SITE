@@ -69,3 +69,25 @@ li {
   margin-bottom: 10px;
   border-radius: 5px;
 }
+
+.bouton-copier {
+  background: linear-gradient(45deg, #ff4081, #ff75a0);
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.bouton-copier:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #ff75a0;
+}
+
+.copier-message {
+  font-size: 14px;
+  margin-top: 8px;
+  color: #aaffaa;
+}

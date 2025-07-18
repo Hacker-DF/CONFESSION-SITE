@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Confessions de {{ pseudo}}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h2>💬 Confessions reçues par {{ pseudo}}</h2>
+  {% if messages %}
+    <ul>
+      {% for msg in messages %}
+        <li>{{ msg}}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Aucune confession pour le moment...</p>
+  {% endif %
+</body>
+</html>

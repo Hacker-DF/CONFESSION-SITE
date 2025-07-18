@@ -5,7 +5,7 @@ import emoji # type: ignore
 app = Flask(__name__)
 
 # Liste de mots interdits à modérer
-mots_interdits = ["insulte", "haine", "violent"]
+mots_interdits = []
 
 # Fonction de modération
 def est_acceptable(message):
@@ -21,6 +21,7 @@ def ajouter_emoji(message):
         "amour": "❤", "solitude": "😞", "colère": "😠"
 }
     for mot, icon in émotions.items():
+
         if mot in message.lower():
             message += " " + icon
     return emoji.emojize(message, language='alias')
@@ -45,5 +46,15 @@ def confession():
     enregistrer(message_emojifié)
     return jsonify({"status": "Confession enregistrée ✅", "message": message_emojifié})
 
-if __name__ == "_main_":
+@app.route("/boite/<pseudo>")
+def boite_utilisateur(pseudo):
+    try:
+        with open(f"confessions_{pseudo}.txt", "r", encoding="utf-8") as f:
+            messages = f.readlines()
+    except FileNotFoundError:
+        messages = []
+
+    return render_template("boite.html", pseudo=pseudo, messages=messages)
+
+if __name__ == "__main__":
     app.run(debug=True)
