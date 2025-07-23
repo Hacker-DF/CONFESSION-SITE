@@ -1,57 +1,59 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CONFESSION</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Site de confessions anonymes, sécurisé et accessible." />
+  <meta name="keywords" content="confession, anonymat, libération, pensées, émotions" />
+  <meta name="author" content="Hacker DF" />
+  <title>Confessions Anonymes</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="favicon.png" type="image/png" />
 </head>
+
 <body>
   <header>
-    <link rel="stylesheet" href="style.css">
-    <h1>CONFESSION</h1>
-    <p class="credit">Créé par <strong>LORD JOSUÉ</strong></p>
+    <h1>Confessions Anonymes 💭</h1>
+    <nav>
+      <a href="#about">À propos</a>
+      <a href="#form">Confesser</a>
+    </nav>
   </header>
 
   <main>
-    <form id="formulaire">
-      <textarea id="message" placeholder="Écris ta confession..." required></textarea>
-      <button type="submit">Envoyer anonymement</button>
-    </form>
+    <section id="about">
+      <h2>À propos</h2>
+      <p>Exprime ce que tu ressens. Toutes les confessions sont anonymes et non enregistrées.</p>
+    </section>
 
-    <section id="confessions">
-      <h2>Messages Anonymes</h2>
-      <ul id="liste"></ul>
+    <section id="form">
+      <h2>Exprime-toi 👇</h2>
+      <form id="confessionForm">
+        <label for="confession">Ta confession:</label><br />
+        <textarea id="confession" name="confession" rows="5" required placeholder="Écris ici..."></textarea><br />
+        <button type="submit">Envoyer</button>
+      </form>
+      <p id="feedback" aria-live="polite"></p>
+    </section>
+
+    <section id="linkSection" style="display: none;">
+      <h3>🔗 Ton lien personnel:</h3>
+      <p id="generatedLink" aria-label="Lien généré">https://example.com/?id=abc123</p>
+      <div class="button-group">
+        <button id="copyBtn" aria-label="Copier le lien">📋 Copier</button>
+        <button id="shareWhatsApp" aria-label="Partager via WhatsApp">💬 WhatsApp</button>
+        <button id="shareFacebook" aria-label="Partager sur Facebook">📘 Facebook</button>
+      </div>
+      <p id="copyFeedback" aria-live="polite"></p>
     </section>
   </main>
-  <section id="partage" style="text-align: center; margin-top: 40px;">
-  <h3 style="color: #ff4081;">🔗 Ton lien de partage personnel</h3>
 
-  <input type="text" id="nomUtilisateur" placeholder="Entre ton pseudo ici"
-         style="padding: 10px; border-radius: 6px; border: 1px solid #888; margin-bottom: 10px; width: 60%; font-size: 16px;"><br>
+  <section style="display:none"></section>
 
-  <button id="btnCopierPerso" onclick="copierLienPerso()" class="bouton-copier">
-    📋 Copier ton lien
-  </button>
-
-  <p id="messageCopiePerso" class="copier-message"></p>
-
-  <!-- Boutons de partage -->
-  <div style="margin-top: 20px;">
-    <a id="lienWhatsApp" href="#" target="_blank" style="margin: 8px;">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"
-           style="height: 30px; vertical-align: middle;"> Partager sur WhatsApp
-    </a>
-    <a id="lienFacebook" href="#" target="_blank" style="margin: 8px;">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Facebook_Logo.png" alt="Facebook"
-           style="height: 28px; vertical-align: middle;"> Partager sur Facebook
-    </a>
-  </div>
-</section>
-<section id="boite-secrete">
-  <h2 id="titre-boite"></h2>
-  <ul id="liste-confessions"></ul>
-</section>
+  <footer>
+    <p>&copy; 2025 - Hacker DF | Site hébergé sur GitHub Pages</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>

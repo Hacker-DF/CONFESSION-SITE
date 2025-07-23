@@ -1,64 +1,60 @@
-// Removed duplicate form and liste declarations and event listener to prevent errors.
+document.addEventListener("DOMContentLoaded", function () {
+  // 🔗 Sélection des éléments HTML
+  const form = document.getElementById("confessionForm");
+  const textarea = document.getElementById("confession");
+  const feedback = document.getElementById("feedback");
+  const linkSection = document.getElementById("linkSection");
+  const generatedLink = document.getElementById("generatedLink");
+  const copyBtn = document.getElementById("copyBtn");
+  const copyFeedback = document.getElementById("copyFeedback");
+  const shareWhatsApp = document.getElementById("shareWhatsApp");
+  const shareFacebook = document.getElementById("shareFacebook");
 
-// Définir la fonction copierLienPerso en dehors de l'event handler
-function copierLienPerso() {
-  const pseudo = document.getElementById("nomUtilisateur").value.trim();
-  const message = document.getElementById("messageCopiePerso");
-  const bouton = document.getElementById("btnCopierPerso");
+  // ✍ Soumission du formulaire
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const msg = textarea.value.trim();
 
-  if (pseudo === "") {
-    message.textContent = "⛔ Entre un pseudo d’abord.";
-    return;
-  }
-
-  const lien = `https://hacker-df.github.io/CONFESSION-SITE/?user=${encodeURIComponent(pseudo)}`;
-  navigator.clipboard.writeText(lien).then(() => {
-    message.textContent = "✅ Lien copié dans le presse-papiers!";
-    bouton.textContent = "✅ Lien copié!";
-    bouton.style.background = "#4CAF50";
-
-    // Mise à jour des liens de partage
-    document.getElementById("lienWhatsApp").href =
-      `https://wa.me/?text=Voici%20mon%20lien%20CONFESSION%20:%20${encodeURIComponent(lien)}`;
-    document.getElementById("lienFacebook").href =
-      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(lien)}`;
-
-    setTimeout(() => {
-      message.textContent = "";
-      bouton.textContent = "📋 Copier ton lien";
-      bouton.style.background = "linear-gradient(45deg, #ff4081, #ff75a0)";
-    }, 3000);
-  }).catch(() => {
-    message.textContent = "❌ Impossible de copier le lien.";
+    if (msg.length < 10) {
+      feedback.textContent = "⚠ Confession trop courte (min. 10 caractères).";
+      feedback.style.color = "orange";
+      linkSection.style.display = "none";
+    } else {
+      const uniqueID = Date.now().toString(36) + Math.random().toString(36).substring(2, 6);
+      const fullURL = `https://tonsite.github.io/CONFESSION-SITE/?id=${uniqueID}`;
+      generatedLink.textContent = fullURL;
+      linkSection.style.display = "block";
+      feedback.textContent = "✅ Confession envoyée avec succès.";
+      feedback.style.color = "lightgreen";
+      form.reset();
+    }
   });
-}
-const params = new URLSearchParams(window.location.search);
-const pseudo = params.get("user");
 
-if (pseudo) {
-  document.getElementById("titre-boite").textContent = `💬 Boîte secrète de ${ pseudo }`;
-}
-const form = document.getElementById("formulaire");
-const liste = document.getElementById("liste-confessions");
+  // 📋 Bouton "Copier le lien"
+  copyBtn.addEventListener("click", function () {
+    const link = generatedLink.textContent;
+    navigator.clipboard.writeText(link).then(() => {
+      copyFeedback.textContent = "📋 Lien copié!";
+      copyFeedback.style.color = "#00ffcc";
+      copyBtn.textContent = "✔ Copié!";
+      setTimeout(() => {
+        copyBtn.textContent = "📋 Copier";
+        copyFeedback.textContent = "";
+      }, 2000);
+    }).catch((err) => {
+      console.error("Erreur lors de la copie:", err);
+    });
+  });
 
-form.addEventListener("submit", function (e) {
-  e.preventDefault();
-  const message = document.getElementById("message").value.trim();
-  const pseudo = new URLSearchParams(window.location.search).get("user") || "inconnu";
+  // 💬 Partage sur WhatsApp
+  shareWhatsApp.addEventListener("click", function () {
+    const message = encodeURIComponent(`Voici mon lien de confession anonyme 🤫: ${generatedLink.textContent}`);
+    window.open(`https://wa.me/?text=${message}`, "_blank");
+});
 
-  fetch("/confession", {
-    method: "POST",
-    headers: { "Content-Type": "application/json"},
-    body: JSON.stringify({ message, pseudo})
-})
-.then(res => res.json())
-.then(data => {
-    if (data.message) {
-      const li = document.createElement("li");
-      li.textContent = data.message;
-      liste.prepend(li);
-}
-    alert(data.status);
-    form.reset();
+  // 📘 Partage sur Facebook
+  shareFacebook.addEventListener("click", function () {
+    const url = encodeURIComponent(generatedLink.textContent);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, "_blank");
 });
 });
