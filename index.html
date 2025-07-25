@@ -1,60 +1,23 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Site de confessions anonymes, sécurisé et accessible." />
-  <meta name="keywords" content="confession, anonymat, libération, pensées, émotions" />
-  <meta name="author" content="Hacker DF" />
-  <title>Confessions Anonymes</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="favicon.png" type="image/png" />
-</head>
+<h2>Envoyer un message anonyme</h2>
+<form id="form">
+  <textarea name="content" placeholder="Écris ton message..." required></textarea>
+  <input type="hidden" name="recipientId" value="abc123">
+  <button type="submit">Envoyer</button>
+</form>
 
-<body>
-  <header>
-    <h1>Confessions Anonymes 💭</h1>
-    <nav>
-      <a href="#about">À propos</a>
-      <a href="#form">Confesser</a>
-    </nav>
-  </header>
-
-  <main>
-    <section id="about">
-      <h2>À propos</h2>
-      <p>Exprime ce que tu ressens. Toutes les confessions sont anonymes et non enregistrées.</p>
-    </section>
-
-    <section id="form">
-      <h2>Exprime-toi 👇</h2>
-      <form id="confessionForm">
-        <label for="confession">Ta confession:</label><br />
-        <textarea id="confession" name="confession" rows="5" required placeholder="Écris ici..."></textarea><br />
-        <button type="submit">Envoyer</button>
-      </form>
-      <p id="feedback" aria-live="polite"></p>
-    </section>
-
-    <section id="linkSection" style="display: none;">
-      <h3>🔗 Ton lien personnel:</h3>
-      <p id="generatedLink" aria-label="Lien généré">https://example.com/?id=abc123</p>
-      <div class="button-group">
-        <button id="copyBtn" aria-label="Copier le lien">📋 Copier</button>
-        <button id="shareWhatsApp" aria-label="Partager via WhatsApp">💬 WhatsApp</button>
-        <button id="shareFacebook" aria-label="Partager sur Facebook">📘 Facebook</button>
-      </div>
-      <p id="copyFeedback" aria-live="polite"></p>
-    </section>
-  </main>
-
-  <section style="display:none"></section>
-
-  <footer>
-    <p>&copy; 2025 - Hacker DF | Site hébergé sur GitHub Pages</p>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
+<script>
+document.getElementById("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const body = {
+    recipientId: formData.get("recipientId"),
+    content: formData.get("content")
+};
+  await fetch("/send", {
+    method: "POST",
+    headers: { "Content-Type": "application/json"},
+    body: JSON.stringify(body)
+});
+  alert("Message envoyé!");
+});
+</script>
