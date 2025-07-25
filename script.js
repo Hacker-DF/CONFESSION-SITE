@@ -58,3 +58,4 @@ document.addEventListener("DOMContentLoaded", function () {
     const url = encodeURIComponent(generatedLink.textContent);
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, "_blank");
 });
+});
