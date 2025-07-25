@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
       form.reset();
     }
   });
+  });
 
   // 📋 Bouton "Copier le lien"
   copyBtn.addEventListener("click", function () {
@@ -56,5 +57,4 @@ document.addEventListener("DOMContentLoaded", function () {
   shareFacebook.addEventListener("click", function () {
     const url = encodeURIComponent(generatedLink.textContent);
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, "_blank");
-});
 });
